@@ -4,6 +4,9 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import './style.css';
+import { preloadQuestionImages } from './utils/preloadImages';
+
+preloadQuestionImages();
 
 const app = createApp(App);
 
