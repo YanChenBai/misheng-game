@@ -9,46 +9,65 @@ import imgMimihuhu from '@/assets/images/迷迷糊糊.webp';
 import imgAmituofo from '@/assets/images/阿弥陀佛.webp';
 import imgYumi from '@/assets/images/鱼米之乡.webp';
 
-// 2. 构造配置数组
 export const questions = [
   {
     image: imgMihoutao,
     answer: '猕猴桃',
+    w: 1096,
+    h: 1468,
   },
   {
     image: imgYumi,
     answer: '鱼米之乡',
+    w: 1096,
+    h: 1468,
   },
   {
     image: imgAmituofo,
     answer: '阿弥陀佛',
+    w: 1096,
+    h: 1468,
   },
   {
     image: imgTianmi,
     answer: '甜甜蜜蜜',
+    w: 1096,
+    h: 1468,
   },
   {
     image: imgYugaizhang,
     answer: '欲盖弥彰',
+    w: 1792,
+    h: 3241,
   },
   {
     image: imgMimimama,
     answer: '密密麻麻',
+    w: 1096,
+    h: 1468,
   },
   {
     image: imgMibutoufeng,
     answer: '密不透风',
+    w: 1792,
+    h: 3241,
   },
   {
     image: imgMizu,
     answer: '弥足珍贵',
+    w: 1096,
+    h: 1468,
   },
   {
     image: imgMimihuhu,
     answer: '迷迷糊糊',
+    w: 1096,
+    h: 1468,
   },
   {
     image: imgShengri,
     answer: '生日快乐',
+    w: 1096,
+    h: 1468,
   },
 ];

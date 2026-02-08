@@ -3,10 +3,13 @@
     <button
       v-if="completed"
       class="py-3 w-full bg-white text-center border-4 border-[#7ECD82] rounded-2xl text-xl text-[#7ECD82] shadow-[0px_6px_0px_0px_#7ECD82] cursor-pointer transition-all active:translate-y-1 active:shadow-none"
+      :style="{ opacity: isAllCompleted ? '0.5' : '1' }"
       type="button"
+      :disabled="isAllCompleted"
       @click="handleNextQuestion()"
     >
-      下一题
+      <template v-if="isAllCompleted">全部做完辣~</template>
+      <template v-else>下一题</template>
     </button>
     <div v-else class="flex lg:flex-row flex-col lg:gap-2 gap-4 lg:items-end w-full">
       <div class="flex flex-col gap-2 w-full">
@@ -42,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{ completed: boolean; length: number }>();
+const props = defineProps<{ completed: boolean; length: number; isAllCompleted: boolean }>();
 const emit = defineEmits<{ (e: 'confirm', guess?: string): void; (e: 'nextQuestion'): void }>();
 const inputValue = defineModel<string>();
 
@@ -50,6 +53,7 @@ function handleAddGuess() {
   if (!inputValue.value) return;
   if (inputValue.value.length !== props.length) return;
   if (props.completed) return;
+  if (props.isAllCompleted) return;
 
   emit('confirm', inputValue.value);
 }
