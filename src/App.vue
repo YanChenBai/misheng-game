@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="h-screen overflow-hidden flex items-center justify-center font-sans text-slate-800 p-8"
-  >
-    <div class="max-w-5xl w-full overflow-hidden flex gap-10 p-8" v-if="question">
+  <div class="min-h-screen flex justify-center lg:items-center font-sans lg:p-8 text-slate-800">
+    <div class="max-w-5xl w-full gap-10 p-8 md:flex" v-if="question">
       <Question :img="question.image" />
 
       <div class="w-full grid grid-rows-[1fr_auto]">
