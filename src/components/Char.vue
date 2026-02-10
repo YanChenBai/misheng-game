@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
 import { CharState, type CheckResult } from '@/types';
-import { computed } from 'vue';
 
 const props = defineProps<CheckResult>();
 

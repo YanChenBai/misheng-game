@@ -14,11 +14,9 @@ export default defineConfig({
     vueDevTools(),
     tailwindcss(),
     autoImport({
-      /* options */
+      imports: ['vue', '@vueuse/core'],
     }),
-    components({
-      /* options */
-    }),
+    components({}),
     injectPreload({
       files: [
         {

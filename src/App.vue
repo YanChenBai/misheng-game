@@ -1,26 +1,15 @@
 <template>
-  <div
-    class="min-h-screen flex justify-center-safe items-center-safe font-sans lg:p-8 text-slate-800"
-  >
+  <div class="min-h-screen flex justify-center-safe items-center-safe font-sans lg:p-8 text-slate-800">
     <div class="max-w-5xl w-full gap-10 p-8 md:flex" v-if="question">
       <Question v-bind="question" />
 
       <div class="w-full grid grid-rows-[1fr_auto]">
-        <div
-          class="overflow-y-hidden flex flex-col gap-4 items-center p-4 pb-8"
-          ref="scrollWrapper"
-        >
+        <div class="overflow-y-hidden flex flex-col gap-4 items-center p-4 pb-8" ref="scrollWrapper">
           <Word v-for="guess in record" :word="guess" :answer="question?.answer" />
         </div>
 
-        <Workspace
-          v-model:model-value="inputValue"
-          @confirm="handleConfirm"
-          @next-question="handleNextQuestion"
-          :length="answerLength"
-          :completed
-          :isAllCompleted
-        />
+        <Workspace v-model:model-value="inputValue" @confirm="handleConfirm" @next-question="handleNextQuestion"
+          :length="answerLength" :completed :isAllCompleted />
       </div>
     </div>
 
@@ -29,14 +18,8 @@
 </template>
 
 <script setup lang="ts">
-import Word from './components/Word.vue';
-import PopBirthdayModal from '@/components/PopBirthdayModal.vue';
-import Question from './components/Question.vue';
-import { computed, nextTick, ref, useTemplateRef, watchEffect } from 'vue';
 import { questions } from './questions';
-import Workspace from './components/Workspace.vue';
 import { fireCenterConfetti } from './utils/confetti';
-import { useUrlSearchParams } from '@vueuse/core';
 
 const popModal = useTemplateRef('popModal');
 const scrollWrapper = useTemplateRef('scrollWrapper');
@@ -45,6 +28,7 @@ const completed = ref(false);
 const record = ref<string[]>([]);
 
 const params = useUrlSearchParams('history');
+
 const step = computed({
   get: () => Number(params.step ?? 0),
   set: (value) => (params.step = String(value)),
