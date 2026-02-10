@@ -1,10 +1,9 @@
 <template>
-  <div
-    class="w-full h-fit bg-white rounded-4xl border-4 border-slate-800 p-6 shadow-[8px_8px_0px_0px_rgba(30,41,59,0.1)]"
-  >
-    <div class="rounded-2xl flex relative overflow-hidden items-center justify-center bg-slate-50">
+  <div class="w-180 bg-[#FEFFFE] rounded-4xl border-4 border-slate-800 p-6 shadow-[8px_8px_0px_0px_rgba(30,41,59,0.1)]">
+    <div class="rounded-2xl flex relative overflow-hidden items-center justify-center">
       <Transition name="fade-slide" mode="out-in">
-        <img :src="image" :key="image" class="rounded-2xl" :width="w" :height="h" />
+        <img :src="image" :key="image" class="rounded-2xl select-none w-full" draggable="false"
+          :style="{ 'aspect-ratio': `calc(${w}/${h})` }" />
       </Transition>
     </div>
   </div>
