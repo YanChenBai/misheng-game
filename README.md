@@ -15,14 +15,12 @@
 
 ## 技术栈
 
-- **框架**：[Vue 3](https://vuejs.org/) - 渐进式 JavaScript 框架
-- **构建工具**：[Vite](https://vite.dev/) - 下一代前端构建工具
-- **语言**：[TypeScript](https://www.typescriptlang.org/) - 类型安全的 JavaScript
-- **路由**：[Vue Router](https://router.vuejs.org/) - Vue.js 官方路由
-- **状态管理**：[Pinia](https://pinia.vuejs.org/) - Vue 的状态管理库
-- **UI 框架**：[Tailwind CSS](https://tailwindcss.com/) + [DaisyUI](https://daisyui.com/)
-- **拼音处理**：[pinyin-pro](https://pinyin-pro.cn/) - 拼音转换库
-- **彩蛋特效**：[canvas-confetti](https://github.com/catdad/canvas-confetti)
+- **框架**：[Vue 3](https://vuejs.org/)
+- **构建工具**：[Vite](https://vite.dev/)
+- **语言**：[TypeScript](https://www.typescriptlang.org/)
+- **原子化 CSS**：[Tailwind CSS](https://tailwindcss.com/)
+- **拼音处理**：[pinyin-pro](https://pinyin-pro.cn/)
+- **礼花特效**：[canvas-confetti](https://github.com/catdad/canvas-confetti)
 
 ## 项目结构
 
@@ -62,14 +60,14 @@ src/
 
 答案验证采用多级匹配机制（定义在 `src/types.ts`）：
 
-| 状态 | 说明 | 颜色 |
-|------|------|------|
-| CORRECT | 完全正确（字和位置都对） | 绿色 |
-| PRON_CORRECT_POS_CORRECT | 拼音正确、位置正确，但字不对 | 黄色 |
-| TONE_CORRECT_POS_CORRECT | 仅声调正确、位置正确 | 浅黄色 |
-| CHAR_CORRECT_POS_WRONG | 字正确但位置错误 | 橙色 |
-| PRON_CORRECT_POS_WRONG | 拼音正确但位置错误 | 蓝色 |
-| ABSENT | 完全不匹配 | 灰色 |
+| 状态                     | 说明                         |
+| ------------------------ | ---------------------------- |
+| CORRECT                  | 完全正确（字和位置都对）     |
+| PRON_CORRECT_POS_CORRECT | 拼音正确、位置正确，但字不对 |
+| TONE_CORRECT_POS_CORRECT | 仅声调正确、位置正确         |
+| CHAR_CORRECT_POS_WRONG   | 字正确但位置错误             |
+| PRON_CORRECT_POS_WRONG   | 拼音正确但位置错误           |
+| ABSENT                   | 完全不匹配                   |
 
 ### 交互流程
 
@@ -77,7 +75,7 @@ src/
 2. 在输入框中输入猜测的词语
 3. 点击「提交」按钮
 4. 系统验证答案并显示反馈
-5. 答对后显示彩蛋动画和「下一题」按钮
+5. 答对后显礼花🎉动画和「下一题」按钮
 6. 完成所有题目后展示生日祝福弹窗
 
 ## 开发指南

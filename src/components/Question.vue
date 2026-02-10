@@ -15,19 +15,16 @@ defineProps<{ image: string; w?: number; h?: number }>();
 </script>
 
 <style scoped>
-/* 定义丝滑的过渡动画 */
 .fade-slide-enter-active,
 .fade-slide-leave-active {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 新图片：从轻微缩小、透明状态进入 */
 .fade-slide-enter-from {
   opacity: 0;
   transform: scale(1.05) translateY(10px);
 }
 
-/* 旧图片：淡出并轻微缩小 */
 .fade-slide-leave-to {
   opacity: 0;
   transform: scale(0.95);

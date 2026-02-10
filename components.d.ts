@@ -15,8 +15,6 @@ declare module 'vue' {
     Modal: typeof import('./src/components/Modal.vue')['default']
     PopBirthdayModal: typeof import('./src/components/PopBirthdayModal.vue')['default']
     Question: typeof import('./src/components/Question.vue')['default']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
     Word: typeof import('./src/components/Word.vue')['default']
     Workspace: typeof import('./src/components/Workspace.vue')['default']
   }

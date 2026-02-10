@@ -1,26 +1,20 @@
-import { questions } from '@/questions';
-
 /**
  * 预加载单个图片
- * @param src 图片地址
- * @returns Promise<void>
+ * @param url 图片地址
  */
-function preloadImage(src: string): Promise<void> {
-  return new Promise<void>((resolve, reject) => {
+function preloadImage(url: string) {
+  // const {} = Promise
+  return new Promise<HTMLImageElement>((resolve, reject) => {
     const img = new Image();
-    img.onload = () => resolve();
-    img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
-    img.src = src;
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+    img.src = url;
   });
 }
 
 /**
- * 预加载所有问题图片
- * @returns Promise<void>
+ * 批量加载图片
  */
-export function preloadQuestionImages(): Promise<void> {
-  const imageUrls = questions.map((q) => q.image);
-  const promises = imageUrls.map((url) => preloadImage(url));
-
-  return Promise.all(promises).then(() => {});
+export function preloadImages(urls: string[]) {
+  return Promise.all(urls.map((url) => preloadImage(url)));
 }

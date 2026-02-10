@@ -1,19 +1,10 @@
 import confetti from 'canvas-confetti';
 
+import { preloadImages } from './preloadImages';
+
 export const fireCenterConfetti = async (customImageUrls: string[] = []) => {
-  // 1. 预加载图片
-  const imagePromises = customImageUrls.map((url) => {
-    return new Promise<HTMLImageElement>((resolve, reject) => {
-      const img = new Image();
-      img.src = url;
-      img.onload = () => resolve(img);
-      img.onerror = reject;
-    });
-  });
+  const loadedImages = await preloadImages(customImageUrls);
 
-  const loadedImages = await Promise.all(imagePromises);
-
-  // 2. 准备形状
   const emojiShapes = ['🎂', '🎁', '🎈', '✨', '🌸', '🍭'].map((emoji) =>
     confetti.shapeFromText({ text: emoji, scalar: 3 }),
   );
@@ -28,7 +19,6 @@ export const fireCenterConfetti = async (customImageUrls: string[] = []) => {
       }) as any,
   );
 
-  // 3. 执行单次大爆发
   await confetti({
     particleCount: 120, // 增加数量，因为只有这一个发射点
     spread: 100, // 扩散角度变大，看起来更圆

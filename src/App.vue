@@ -34,43 +34,32 @@ import PopBirthdayModal from '@/components/PopBirthdayModal.vue';
 import Question from './components/Question.vue';
 import { computed, nextTick, ref, useTemplateRef, watchEffect } from 'vue';
 import { questions } from './questions';
-import { useRoute, useRouter } from 'vue-router';
 import Workspace from './components/Workspace.vue';
 import { fireCenterConfetti } from './utils/confetti';
+import { useUrlSearchParams } from '@vueuse/core';
 
 const popModal = useTemplateRef('popModal');
 const scrollWrapper = useTemplateRef('scrollWrapper');
-const route = useRoute();
-const router = useRouter();
 const inputValue = ref('');
 const completed = ref(false);
-const showModal = ref(true);
 const record = ref<string[]>([]);
 
-const currentQuestionIndex = computed({
-  get: () => Number(route.query.q ?? 0),
-  set: (value) => {
-    router.push({
-      path: router.currentRoute.value.path ?? '',
-      query: {
-        q: value,
-      },
-    });
-  },
+const params = useUrlSearchParams('history');
+const step = computed({
+  get: () => Number(params.step ?? 0),
+  set: (value) => (params.step = String(value)),
 });
 
-const question = computed(() => questions[currentQuestionIndex.value]);
+const question = computed(() => questions[step.value]);
 const answerLength = computed(() => question.value?.answer.length ?? 0);
-const isAllCompleted = computed(
-  () => currentQuestionIndex.value === questions.length - 1 && completed.value,
-);
+const isAllCompleted = computed(() => step.value === questions.length - 1 && completed.value);
 
 function handleNextQuestion() {
-  if (currentQuestionIndex.value === questions.length - 1) {
+  if (step.value === questions.length - 1) {
     return;
   }
 
-  currentQuestionIndex.value++;
+  step.value++;
   record.value = [];
   inputValue.value = '';
   completed.value = false;

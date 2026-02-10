@@ -16,6 +16,9 @@ import { computed } from 'vue';
 
 const props = defineProps<CheckResult>();
 
+const textOrange = 'text-[#f79444]';
+const textGreen = 'text-[#7ECD82]';
+
 const wrapStyles = computed(() => {
   if (props.state === CharState.CORRECT)
     return ['bg-[#7ECD82] text-white shadow-[0px_6px_0px_0px_#A2DD95]'];
@@ -25,18 +28,19 @@ const wrapStyles = computed(() => {
 
 const pinyinStyle = computed(() => {
   if (props.state === CharState.PRON_CORRECT_POS_CORRECT) {
-    return ['text-[#7ECD82]'];
+    return textGreen;
   } else if (props.state === CharState.PRON_CORRECT_POS_WRONG) {
-    return ['text-[#f79444]'];
+    return textOrange;
   }
+
   if (props.state === CharState.CHAR_CORRECT_POS_WRONG) {
-    return ['text-[#f79444]'];
+    return textOrange;
   }
 });
 
 const chatStyle = computed(() => {
   if (props.state === CharState.CHAR_CORRECT_POS_WRONG) {
-    return ['text-[#f79444]'];
+    return textOrange;
   }
 });
 </script>

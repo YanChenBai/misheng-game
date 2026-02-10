@@ -2,6 +2,7 @@ import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import { fileURLToPath, URL } from 'node:url';
 import autoImport from 'unplugin-auto-import/vite';
+import injectPreload from 'unplugin-inject-preload/vite';
 import components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
 import vueDevTools from 'vite-plugin-vue-devtools';
@@ -17,6 +18,13 @@ export default defineConfig({
     }),
     components({
       /* options */
+    }),
+    injectPreload({
+      files: [
+        {
+          outputMatch: /.*\.webp$/,
+        },
+      ],
     }),
   ],
   resolve: {

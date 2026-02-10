@@ -2,39 +2,48 @@ import { pinyin } from 'pinyin-pro';
 
 import { CharState, type CheckResult } from '@/types';
 
+// 提取声调的工具函数
+function extractTone(p: string) {
+  const lastChar = p.slice(-1);
+  const toneNum = parseInt(lastChar, 10);
+  return isNaN(toneNum) ? 0 : toneNum;
+}
+
+// 获取基础拼音
+function getPinyin(str: string) {
+  return pinyin(str, { toneType: 'none', type: 'array' });
+}
+
+function getTones(str: string) {
+  return pinyin(str, { toneType: 'num', type: 'array' }).map((p) => extractTone(p));
+}
+
 export function checkWord(answer: string, guess: string): CheckResult[] {
   const answerChars = answer.split('');
   const guessChars = guess.split('');
 
-  // 1. 获取基础拼音 (用于逻辑比对)
-  const answerPinYinsNone = pinyin(answer, { toneType: 'none', type: 'array' });
-  const guessPinYinsNone = pinyin(guess, { toneType: 'none', type: 'array' });
+  // 获取基础拼音
+  const answerPinYinsNone = getPinyin(answer);
+  const guessPinYinsNone = getPinyin(guess);
 
-  // 2. 获取声调数字 (仅用于提取 tone 字段)
-  const answerPinYinsNumeric = pinyin(answer, { toneType: 'num', type: 'array' });
-  const guessPinYinsNumeric = pinyin(guess, { toneType: 'num', type: 'array' });
-
-  // 提取声调的工具函数
-  const extractTone = (p: string): number => {
-    const lastChar = p.slice(-1);
-    const toneNum = parseInt(lastChar, 10);
-    return isNaN(toneNum) ? 0 : toneNum;
-  };
+  // 获取声调数字
+  const answerTones = getTones(answer);
+  const guessTones = getTones(guess);
 
   const results: CheckResult[] = guessChars.map((char, i) => ({
     char,
-    pinyin: guessPinYinsNone[i]!, // 这里按你要求改为 none
-    tone: extractTone(guessPinYinsNumeric[i]!),
+    pinyin: guessPinYinsNone[i] ?? '',
+    tone: guessTones[i] ?? 0,
     state: CharState.ABSENT,
   }));
 
   const usedIndices = new Set<number>();
 
-  // --- 第一轮：位置判定 (Position-based) ---
+  // 位置判定 (Position-based)
   results.forEach((res, i) => {
     const isCharMatch = res.char === answerChars[i];
     const isPinyinMatch = guessPinYinsNone[i] === answerPinYinsNone[i];
-    const isToneMatch = res.tone === extractTone(answerPinYinsNumeric[i]!);
+    const isToneMatch = res.tone === answerTones[i];
 
     if (isCharMatch) {
       res.state = CharState.CORRECT;
@@ -49,7 +58,7 @@ export function checkWord(answer: string, guess: string): CheckResult[] {
     }
   });
 
-  // --- 第二轮：存在判定 (Existence-based) ---
+  // 存在判定 (Existence-based)
   results.forEach((res, i) => {
     // 跳过第一轮已经确定位置的状态（除了仅声调对的情况，因为它不占用消耗名额）
     if (res.state === CharState.CORRECT || res.state === CharState.PRON_CORRECT_POS_CORRECT) return;
