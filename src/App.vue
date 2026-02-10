@@ -4,16 +4,16 @@
       <Question v-bind="question" />
 
       <div class="w-full grid grid-rows-[1fr_auto]">
-        <div class="overflow-y-hidden flex flex-col gap-4 items-center p-4 pb-8" ref="scrollWrapper">
+        <div class="overflow-y-hidden flex flex-col gap-4 items-center p-4 pb-8" ref="scrollWrapperRef">
           <Word v-for="guess in record" :word="guess" :answer="question?.answer" />
         </div>
 
-        <Workspace v-model:model-value="inputValue" @confirm="handleConfirm" @next-question="handleNextQuestion"
-          :length="answerLength" :completed :isAllCompleted />
+        <Workspace ref="workspaceRef" v-model:model-value="inputValue" @confirm="handleConfirm"
+          @next-question="handleNextQuestion" :length="answerLength" :completed :isAllCompleted />
       </div>
     </div>
 
-    <PopBirthdayModal ref="popModal" />
+    <PopBirthdayModal ref="popModalRef" />
   </div>
 </template>
 
@@ -21,8 +21,9 @@
 import { questions } from './questions';
 import { fireCenterConfetti } from './utils/confetti';
 
-const popModal = useTemplateRef('popModal');
-const scrollWrapper = useTemplateRef('scrollWrapper');
+const popModalRef = useTemplateRef('popModalRef');
+const scrollWrapperRef = useTemplateRef('scrollWrapperRef');
+const workspaceRef = useTemplateRef('workspaceRef');
 const inputValue = ref('');
 const completed = ref(false);
 const record = ref<string[]>([]);
@@ -47,6 +48,10 @@ function handleNextQuestion() {
   record.value = [];
   inputValue.value = '';
   completed.value = false;
+
+  nextTick(() => {
+    workspaceRef.value?.focusInput()
+  })
 }
 
 async function handleConfirm() {
@@ -55,8 +60,8 @@ async function handleConfirm() {
   record.value.push(inputValue.value);
 
   nextTick(() => {
-    scrollWrapper.value?.scrollTo({
-      top: scrollWrapper.value?.scrollHeight,
+    scrollWrapperRef.value?.scrollTo({
+      top: scrollWrapperRef.value?.scrollHeight,
       behavior: 'smooth',
     });
   });
@@ -70,6 +75,10 @@ async function handleConfirm() {
 }
 
 watchEffect(() => {
-  if (isAllCompleted.value) popModal.value?.openModal();
+  if (isAllCompleted.value) popModalRef.value?.openModal();
+});
+
+onMounted(() => {
+  workspaceRef.value?.focusInput()
 });
 </script>

@@ -29,6 +29,7 @@
           v-model="inputValue"
           :maxlength="length"
           :minlength="length"
+          ref="inputRef"
           class="w-full py-3 bg-white text-[#83858A] text-center border-4 border-[#B9BBD1] rounded-2xl text-xl shadow-[0px_6px_0px_0px_#B9BBD1] transition-all outline-none"
         />
       </div>
@@ -47,6 +48,7 @@
 <script setup lang="ts">
 const props = defineProps<{ completed: boolean; length: number; isAllCompleted: boolean }>();
 const emit = defineEmits<{ (e: 'confirm', guess?: string): void; (e: 'nextQuestion'): void }>();
+const inputRef = useTemplateRef('inputRef');
 const inputValue = defineModel<string>();
 
 function handleAddGuess() {
@@ -63,4 +65,10 @@ function handleNextQuestion() {
 
   emit('nextQuestion');
 }
+
+function focusInput() {
+  inputRef.value?.focus();
+}
+
+defineExpose({ focusInput });
 </script>
