@@ -1,5 +1,5 @@
 <template>
-  <div class="w-180 bg-[#FEFFFE] rounded-4xl border-4 border-slate-800 p-6 shadow-[8px_8px_0px_0px_rgba(30,41,59,0.1)]">
+  <div class="xl:w-180 bg-[#FEFFFE] rounded-4xl border-4 border-slate-800 p-6 shadow-[8px_8px_0px_0px_rgba(30,41,59,0.1)]">
     <div class="rounded-2xl flex relative overflow-hidden items-center justify-center">
       <Transition name="fade-slide" mode="out-in">
         <img :src="image" :key="image" class="rounded-2xl select-none w-full" draggable="false"
