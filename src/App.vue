@@ -1,15 +1,27 @@
 <template>
-  <div class="min-h-screen flex justify-center-safe items-center-safe font-sans lg:p-8 text-slate-800">
+  <div
+    class="min-h-screen flex justify-center-safe items-center-safe font-sans lg:p-8 text-slate-800"
+  >
     <div class="max-w-5xl w-full gap-10 p-8 md:flex" v-if="question">
       <Question v-bind="question" />
 
       <div class="w-full grid grid-rows-[1fr_auto]">
-        <div class="overflow-y-hidden flex flex-col gap-4 items-center p-4 pb-8" ref="scrollWrapperRef">
+        <div
+          class="overflow-y-hidden flex flex-col gap-4 items-center p-4 pb-8"
+          ref="scrollWrapperRef"
+        >
           <Word v-for="guess in record" :word="guess" :answer="question?.answer" />
         </div>
 
-        <Workspace ref="workspaceRef" v-model:model-value="inputValue" @confirm="handleConfirm"
-          @next-question="handleNextQuestion" :length="answerLength" :completed :isAllCompleted />
+        <Workspace
+          ref="workspaceRef"
+          v-model:model-value="inputValue"
+          @confirm="handleConfirm"
+          @next-question="handleNextQuestion"
+          :length="answerLength"
+          :completed
+          :isAllCompleted
+        />
       </div>
     </div>
 
@@ -50,8 +62,8 @@ function handleNextQuestion() {
   completed.value = false;
 
   nextTick(() => {
-    workspaceRef.value?.focusInput()
-  })
+    workspaceRef.value?.focusInput();
+  });
 }
 
 async function handleConfirm() {
@@ -79,6 +91,6 @@ watchEffect(() => {
 });
 
 onMounted(() => {
-  workspaceRef.value?.focusInput()
+  workspaceRef.value?.focusInput();
 });
 </script>
