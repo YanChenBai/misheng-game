@@ -1,6 +1,6 @@
 <template>
   <div
-    class="xl:w-180 bg-[#FEFFFE] rounded-4xl border-4 border-slate-800 p-6 shadow-[8px_8px_0px_0px_rgba(30,41,59,0.1)]"
+    class="lg:w-170 md:w-160 bg-[#FEFFFE] rounded-4xl border-4 border-slate-800 p-6 shadow-[8px_8px_0px_0px_rgba(30,41,59,0.1)]"
   >
     <div class="rounded-2xl flex relative overflow-hidden items-center justify-center">
       <Transition name="fade-slide" mode="out-in">
@@ -13,11 +13,13 @@
         />
       </Transition>
     </div>
+
+    <div class="text-2xl text-center w-full pt-2">这是{{ '_ '.repeat(answer.length) }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{ image: string; w?: number; h?: number }>();
+defineProps<{ image: string; w?: number; h?: number; answer: string }>();
 </script>
 
 <style scoped>

@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="min-h-screen flex justify-center-safe items-center-safe font-sans lg:p-8 text-slate-800"
-  >
-    <div class="max-w-5xl w-full gap-10 p-8 md:flex" v-if="question">
+  <div class="min-h-dvh flex justify-center-safe items-center-safe font-sans text-slate-800">
+    <div class="xl:max-w-5xl w-full gap-10 p-8 md:flex" v-if="question">
       <Question v-bind="question" />
 
       <div class="w-full grid grid-rows-[1fr_auto]">
