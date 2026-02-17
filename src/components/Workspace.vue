@@ -70,5 +70,15 @@ function focusInput() {
   inputRef.value?.focus();
 }
 
+useEventListener('keydown', (e) => {
+  if (e.key !== 'Enter') return;
+
+  if (props.completed) {
+    handleNextQuestion();
+  } else {
+    handleAddGuess();
+  }
+});
+
 defineExpose({ focusInput });
 </script>
